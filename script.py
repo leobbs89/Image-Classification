@@ -8,6 +8,7 @@ import numpy as np
 import cv2 as cv
 import pandas as pd
 import matplotlib.pyplot as plt 
+from tqdm import tqdm
 
 #Convert 1D array to an image
 def view_image(arr):
@@ -39,7 +40,7 @@ def distance(x,U):
 def prediction(test_data,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9):
     dist = np.zeros((10,1))
     predictions = np.zeros(np.size(test_data,1))
-    for i in range(np.size(test_data,1)):
+    for i in tqdm(range(np.size(test_data,1))):
         dist[0] = distance(test_data[:,i],U0)
         dist[1] = distance(test_data[:,i],U1)
         dist[2] = distance(test_data[:,i],U2)
@@ -74,16 +75,16 @@ tolerance_test = np.linspace(0.1,0.9,9)
 accuracy = np.zeros(9)
 for i in range(9):
     print('Tolerance = %.2f' %tolerance_test[i],end ='')
-    U0 = space_reduction(xtrain,ytrain,tolerance_test[i],0);print('.',end='')
-    U1 = space_reduction(xtrain,ytrain,tolerance_test[i],1);print('.',end='')
-    U2 = space_reduction(xtrain,ytrain,tolerance_test[i],2);print('.',end='')
-    U3 = space_reduction(xtrain,ytrain,tolerance_test[i],3);print('.',end='')
-    U4 = space_reduction(xtrain,ytrain,tolerance_test[i],4);print('.',end='')
-    U5 = space_reduction(xtrain,ytrain,tolerance_test[i],5);print('.',end='')
-    U6 = space_reduction(xtrain,ytrain,tolerance_test[i],6);print('.',end='')
-    U7 = space_reduction(xtrain,ytrain,tolerance_test[i],7);print('.',end='')
-    U8 = space_reduction(xtrain,ytrain,tolerance_test[i],8);print('.',end='')
-    U9 = space_reduction(xtrain,ytrain,tolerance_test[i],9);print('.',end='') 
+    U0 = space_reduction(xtrain,ytrain,tolerance_test[i],0)
+    U1 = space_reduction(xtrain,ytrain,tolerance_test[i],1)
+    U2 = space_reduction(xtrain,ytrain,tolerance_test[i],2)
+    U3 = space_reduction(xtrain,ytrain,tolerance_test[i],3)
+    U4 = space_reduction(xtrain,ytrain,tolerance_test[i],4)
+    U5 = space_reduction(xtrain,ytrain,tolerance_test[i],5)
+    U6 = space_reduction(xtrain,ytrain,tolerance_test[i],6)
+    U7 = space_reduction(xtrain,ytrain,tolerance_test[i],7)
+    U8 = space_reduction(xtrain,ytrain,tolerance_test[i],8)
+    U9 = space_reduction(xtrain,ytrain,tolerance_test[i],9) 
     val_pred = prediction(xval,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9)
     accuracy[i] = sum(val_pred==yval)/np.size(yval,0)
     print(' Acurracy : %.2f' %accuracy[i])
